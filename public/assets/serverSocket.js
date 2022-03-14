@@ -192,6 +192,10 @@ const connectToServer = async (address, password=null) => {
     serverStatus.innerText = 'Not Connected';
     serverStatus.classList.add('red');
 
+    // Clear game interval
+    if (gameInterval) { clearInterval(gameInterval); }
+    document.getElementById('progress-bar').setAttribute('value', '0');
+
     // If the user cleared the server address, do nothing
     const serverAddress = document.getElementById('server-address').value;
     if (preventReconnect || !serverAddress) { return; }

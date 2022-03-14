@@ -1,3 +1,6 @@
+// Loop control
+let gameInterval = null;
+
 window.addEventListener('load', () => {
   document.getElementById('control-button').addEventListener('click', beginGame);
 });
@@ -18,10 +21,28 @@ const beginGame = () => {
   const itemCounter = document.getElementById('checks-sent');
   itemCounter.innerText = (100 - missingLocations.length).toString();
 
-  const gameInterval = setInterval(() => {
+  // If all checks have already been sent, fill the progress bar and do nothing else
+  if (missingLocations.length === 0) {
+    progressBar.setAttribute('value', '30000');
+    return;
+  }
+
+  gameInterval = setInterval(() => {
+    // If the last item has been sent, send the victory condition and stop the interval
+    if (currentLocation > parseInt(missingLocations[missingLocations.length - 1], 10)) {
+      serverSocket.send(JSON.stringify([{
+        cmd: 'StatusUpdate',
+        status: CLIENT_STATUS.CLIENT_GOAL,
+      }]));
+      clearInterval(gameInterval);
+      gameInterval = null;
+      return;
+    }
+
+    // Update current time
     const currentTime = new Date().getTime();
 
-    // Time to send the current location check
+    // If thirty seconds have passed, send the current location check
     if (currentTime >= endTime) {
       // Send location check
       sendLocationChecks([currentLocation]);
@@ -29,15 +50,6 @@ const beginGame = () => {
       // Update the item counters
       itemCounter.innerText = (parseInt(itemCounter.innerText, 10) + 1).toString();
       currentLocation++;
-
-      // If the last item has been sent, send the victory condition and stop the interval
-      if (currentLocation >= parseInt(missingLocations[missingLocations.length - 1], 10)) {
-        serverSocket.send(JSON.stringify([{
-          cmd: 'StatusUpdate',
-          status: CLIENT_STATUS.CLIENT_GOAL,
-        }]));
-        clearInterval(gameInterval);
-      }
 
       // Update timers
       startTime = currentTime;
