@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ArchipIDLE</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/index.css" />
+    <script type="application/ecmascript" src="assets/globals.js"></script>
+    <script type="application/ecmascript" src="assets/serverSocket.js"></script>
+    <script type="application/ecmascript" src="assets/console.js"></script>
+    <script type="application/ecmascript" src="assets/idle.js"></script>
+</head>
+<body>
+<div id="main-content">
+    <h2 id="header-text">ArchipIDLE</h2>
+
+    <div id="status-bar">
+        <div>AP Server: <span id="server-status" class="red">Not Connected</span></div>
+        <div>
+            <label for="server-address">Server Address:</label>
+            <input id="server-address" />
+        </div>
+    </div>
+
+    <div id="progress-container">
+        <h3 id="progress-container-header">Location Check Progress</h3>
+        <progress id="progress-bar" value="0" max="30000"></progress>
+        Checks sent: <span id="checks-sent">0</span> / 100<br />
+        <button id="control-button" disabled="disabled">Begin!</button>
+    </div>
+
+    <div id="console">
+        <!-- Populated by JS -->
+    </div>
+
+    <div id="command-wrapper">
+        <label for="console-input"></label>
+        <input id="console-input" placeholder="Enter a command here, then press enter." />
+    </div>
+</div>
+</body>
+</html>
