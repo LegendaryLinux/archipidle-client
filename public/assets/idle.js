@@ -36,6 +36,7 @@ const beginGame = () => {
       }]));
       clearInterval(gameInterval);
       gameInterval = null;
+      progressBar.setAttribute('value', '30000');
       return;
     }
 
