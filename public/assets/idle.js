@@ -15,7 +15,8 @@ const beginGame = () => {
   // Progress tracking data
   const progressBar = document.getElementById('progress-bar');
   let startTime = new Date().getTime();
-  let endTime = startTime + 30000;
+  let endTime = startTime + Math.floor((Math.random() * 30000) + 30000);
+  progressBar.setAttribute('max', (endTime - startTime).toString());
 
   // Update item counter
   const itemCounter = document.getElementById('checks-sent');
@@ -23,6 +24,7 @@ const beginGame = () => {
 
   // If all checks have already been sent, fill the progress bar and do nothing else
   if (missingLocations.length === 0) {
+    progressBar.setAttribute('max', '30000');
     progressBar.setAttribute('value', '30000');
     return;
   }
@@ -36,6 +38,7 @@ const beginGame = () => {
       }]));
       clearInterval(gameInterval);
       gameInterval = null;
+      progressBar.setAttribute('max', '30000');
       progressBar.setAttribute('value', '30000');
       return;
     }
@@ -43,7 +46,7 @@ const beginGame = () => {
     // Update current time
     const currentTime = new Date().getTime();
 
-    // If thirty seconds have passed, send the current location check
+    // If the item timer has expired, send the current location check
     if (currentTime >= endTime) {
       // Send location check
       sendLocationChecks([currentLocation]);
@@ -54,10 +57,13 @@ const beginGame = () => {
 
       // Update timers
       startTime = currentTime;
-      endTime = currentTime + 30000;
+      endTime = currentTime + Math.floor((Math.random() * 30000) + 30000);
+
+      // Update progress bar maximum
+      progressBar.setAttribute('max', (endTime - startTime).toString());
     }
 
-    // Update the progress bar
-    progressBar.setAttribute('value', (30000 - (endTime - currentTime)).toString());
+    // Update the progress bar value
+    progressBar.setAttribute('value', ((endTime - startTime) - (endTime - currentTime)).toString());
   });
 };
