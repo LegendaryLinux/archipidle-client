@@ -91,13 +91,15 @@ const connectToServer = async (address, password=null) => {
           }
 
           // Include DeathLink tag if it is enabled in the ROM
-          const tags = ['ArchipIDLE'];
+          const tags = ['ArchipIDLE', 'DeathLink'];
+
+          slotName = prompt('Enter your slot name:');
 
           // Authenticate with the server
           const connectionData = {
             cmd: 'Connect',
             game: 'ArchipIDLE',
-            name: prompt('Enter your slot name:'),
+            name: slotName,
             uuid: getClientId(),
             tags,
             password: serverPassword,
@@ -108,6 +110,8 @@ const connectToServer = async (address, password=null) => {
           break;
 
         case 'Connected':
+          console.log(command);
+
           // Reset reconnection info
           reconnectAttempts = 0;
 
@@ -177,6 +181,20 @@ const connectToServer = async (address, password=null) => {
         case 'Bounced':
           // This command can be used for a variety of things. Currently, it is used for keep-alive and DeathLink.
           // keep-alive packets can be safely ignored
+          if (command.tags && command.tags.includes('DeathLink')) {
+            // Do not show a motivational video if the player is protected from DeathLink packets
+            if (immortal || protectFromDeathLink) { return; }
+
+            protectFromDeathLink = true;
+            ++deathCounter;
+            setTimeout(() => { protectFromDeathLink = false; }, 3000)
+            motivatePlayer(command.data.source || null);
+
+            // If the player keeps getting killed, show the fate widget
+            if ((deathCounter % 5) === 0) {
+              chooseFate();
+            }
+          }
           break;
 
         default:
@@ -289,4 +307,21 @@ const buildItemAndLocationData = (dataPackage) => {
   });
 
   ootLocationsByName = dataPackage.games['Ocarina of Time'].location_name_to_id;
+};
+
+const sendDeathLink = () => {
+  if (serverSocket && serverSocket.readyState === WebSocket.OPEN) {
+    serverSocket.send(JSON.stringify([{
+      cmd: 'Bounce',
+      tags: ['DeathLink'],
+      data: {
+        time: new Date().getTime() / 1000,
+        cause: 'Closed ArchipIDLE',
+        source: slotName,
+      }
+    }]));
+  }
+
+  protectFromDeathLink = true;
+  setTimeout(() => { protectFromDeathLink = false; }, 3000);
 };

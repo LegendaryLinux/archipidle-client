@@ -1,7 +1,7 @@
 const ARCHIPELAGO_PROTOCOL_VERSION = {
   major: 0,
   minor: 3,
-  build: 1,
+  build: 9,
   class: 'Version',
 };
 
@@ -20,6 +20,7 @@ const permissionMap = {
 };
 
 // Players in the current game, received from Connected server packet
+let slotName = null;
 let playerSlot = null;
 let playerTeam = null;
 let players = [];
@@ -32,3 +33,11 @@ let ootLocationsByName = {};
 
 // Tracks if auto-scrolling is currently paused
 let autoScrollPaused = false;
+
+// Tracks if the client should be protected from DeathLink messages
+let immortal = false;
+let protectFromDeathLink = false;
+let deathCounter = 0;
+
+// Tracks the number of items which should be sent immediately
+let immediateItems = 0;

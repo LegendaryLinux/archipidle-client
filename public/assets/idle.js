@@ -20,7 +20,7 @@ const beginGame = () => {
 
   // Update item counter
   const itemCounter = document.getElementById('checks-sent');
-  itemCounter.innerText = (100 - missingLocations.length).toString();
+  itemCounter.innerText = (200 - missingLocations.length).toString();
 
   // If all checks have already been sent, fill the progress bar and do nothing else
   if (missingLocations.length === 0) {
@@ -46,8 +46,10 @@ const beginGame = () => {
     // Update current time
     const currentTime = new Date().getTime();
 
-    // If the item timer has expired, send the current location check
-    if (currentTime >= endTime) {
+    // If the item timer has expired or there are immediate items waiting, send the current location check
+    if ((immediateItems > 0) || (currentTime >= endTime)) {
+      if (immediateItems > 0) { --immediateItems; }
+
       // Send location check
       sendLocationChecks([currentLocation]);
 
@@ -67,3 +69,6 @@ const beginGame = () => {
     progressBar.setAttribute('value', ((endTime - startTime) - (endTime - currentTime)).toString());
   });
 };
+
+// If the player closes ArchipIDLE, send a DeathLink
+window.addEventListener('beforeunload', sendDeathLink);

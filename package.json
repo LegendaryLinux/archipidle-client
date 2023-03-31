@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "host": "http-server public -p 80"
+    "host": "http-server public -p 8080"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
