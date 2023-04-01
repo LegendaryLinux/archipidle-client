@@ -3,6 +3,16 @@ let gameInterval = null;
 
 window.addEventListener('load', () => {
   document.getElementById('control-button').addEventListener('click', beginGame);
+
+  // Cookie message controller
+  if (!localStorage.getItem('cookie-notice')) {
+    const cookieMessage = document.getElementById('cookie-message');
+    cookieMessage.style.display = 'flex';
+    cookieMessage.addEventListener('click', () => {
+      localStorage.setItem('cookie-notice', '1');
+      cookieMessage.style.display = 'none';
+    });
+  }
 });
 
 const beginGame = () => {

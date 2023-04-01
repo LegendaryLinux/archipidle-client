@@ -313,15 +313,14 @@ const buildItemAndLocationData = (dataPackage) => {
   ootLocationsByName = dataPackage.games['Ocarina of Time'].location_name_to_id;
 };
 
-const sendDeathLink = (cause=null) => {
+const sendDeathLink = (cause = null) => {
   if (serverSocket && serverSocket.readyState === WebSocket.OPEN) {
-    if (!cause) { cause = `${slotName || 'Someone'} closed ArchipIDLE`; }
     serverSocket.send(JSON.stringify([{
       cmd: 'Bounce',
       tags: ['DeathLink'],
       data: {
         time: new Date().getTime() / 1000,
-        cause,
+        cause: cause || `${slotName || 'Someone'} closed ArchipIDLE`,
         source: slotName,
       }
     }]));
