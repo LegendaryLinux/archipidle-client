@@ -4,13 +4,16 @@ const motivationalVideos = [
   'https://www.youtube.com/embed/KmtzQCSh6xk', // Numa Numa
   'https://www.youtube.com/embed/QH2-TGUlwu4', // Nyan Cat
   'https://www.youtube.com/embed/9bZkp7q19f0', // Gangnam Style
-  'https://www.youtube.com/embed/FTQbiNvZqaY', // Africa - Toto
   'https://www.youtube.com/embed/MtN1YnoL46Q', // The Duck Song
   'https://www.youtube.com/embed/EwTZ2xpQwpA', // Chocolate Rain - Tay Zonday
   'https://www.youtube.com/embed/rfh4Mhp-a6U', // Dramatic Chipmunk
   'https://www.youtube.com/embed/2Z4m4lnjxkY', // Trololo
   'https://www.youtube.com/embed/ZZ5LpwO-An4', // He-Man What's Goin' On
   'https://www.youtube.com/embed/Z3ZAGBL6UBA', // Peanut Butter Jelly Time
+  'https://www.youtube.com/embed/KMYN4djSq7o', // Llama Song
+  'https://www.youtube.com/embed/A67ZkAd1wmI', // Caramelldansen
+  'https://www.youtube.com/embed/EIyixC9NsLI', // Badger Badger Badger
+  'https://www.youtube.com/embed/CsGYh8AacgY', // Charlie the Unicorn
 ];
 
 const motivatePlayer = (playerName = 'a dead player') => {
