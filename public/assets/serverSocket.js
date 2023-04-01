@@ -182,6 +182,10 @@ const connectToServer = async (address, password=null) => {
           // This command can be used for a variety of things. Currently, it is used for keep-alive and DeathLink.
           // keep-alive packets can be safely ignored
           if (command.tags && command.tags.includes('DeathLink')) {
+            if (command.data && command.data.cause) {
+              appendConsoleMessage(command.data.cause);
+            }
+
             // Do not show a motivational video if the player is protected from DeathLink packets
             if (immortal || protectFromDeathLink) { return; }
 
