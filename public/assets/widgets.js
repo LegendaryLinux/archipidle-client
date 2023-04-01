@@ -100,7 +100,7 @@ const chooseFate = () => {
   fateContainer.appendChild(sowChaos);
   sowChaos.addEventListener('click', () => {
     // Kill everyone!
-    sendDeathLink();
+    sendDeathLink(`${slotName || 'Someone'} chose to sow chaos! You have all been destroyed!`);
     hideFate();
   });
 
@@ -130,12 +130,9 @@ const chooseFate = () => {
         break;
       case 3:
         // Kill everyone
-        if (slotName) {
-          sendMessageToServer(`${slotName} trusted Farrak to choose your punishment for repeatedly killing them.` +
-            `That may have been a poor decision.`);
-        }
         appendConsoleMessage('FATE: Sending a DeathLink.');
-        sendDeathLink();
+        sendDeathLink(`${slotName || 'Someone'} trusted Farrak to choose your punishment for repeatedly killing them.` +
+          `That may have been a poor decision.`);
         break;
       case 4:
         // Eyestrain mode
