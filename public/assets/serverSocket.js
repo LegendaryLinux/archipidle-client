@@ -110,8 +110,6 @@ const connectToServer = async (address, password=null) => {
           break;
 
         case 'Connected':
-          console.log(command);
-
           // Reset reconnection info
           reconnectAttempts = 0;
 
@@ -191,7 +189,7 @@ const connectToServer = async (address, password=null) => {
 
             protectFromDeathLink = true;
             ++deathCounter;
-            setTimeout(() => { protectFromDeathLink = false; }, 3000)
+            setTimeout(() => { protectFromDeathLink = false; }, 3000);
             motivatePlayer(command.data.source || null);
 
             // If the player keeps getting killed, show the fate widget
@@ -313,14 +311,14 @@ const buildItemAndLocationData = (dataPackage) => {
   ootLocationsByName = dataPackage.games['Ocarina of Time'].location_name_to_id;
 };
 
-const sendDeathLink = (cause = null) => {
+const sendDeathLink = (cause) => {
   if (serverSocket && serverSocket.readyState === WebSocket.OPEN) {
     serverSocket.send(JSON.stringify([{
       cmd: 'Bounce',
       tags: ['DeathLink'],
       data: {
         time: new Date().getTime() / 1000,
-        cause: cause || `${slotName || 'Someone'} closed ArchipIDLE`,
+        cause: cause,
         source: slotName,
       }
     }]));

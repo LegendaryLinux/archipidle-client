@@ -81,4 +81,4 @@ const beginGame = () => {
 };
 
 // If the player closes ArchipIDLE, send a DeathLink
-window.addEventListener('beforeunload', sendDeathLink);
+window.addEventListener('beforeunload', () => sendDeathLink(`${slotName || 'Somebody'} closed ArchipIDLE.`));
