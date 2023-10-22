@@ -63,6 +63,14 @@ const connectToServer = async (address, password=null) => {
   if (serverAddress.search(/^\/connect /) > -1) { serverAddress = serverAddress.substring(9); }
   if (serverAddress.search(/:\d+$/) === -1) { serverAddress = `${serverAddress}:${DEFAULT_SERVER_PORT}`;}
 
+  // Determine connection protocol, default to secure websocket
+  const protocol = /^ws:\/\//.test(serverAddress) ? 'ws' : 'wss';
+
+  // Strip protocol from server address if present
+  serverAddress = serverAddress.replace(/^.*\/\//, '');
+
+  console.log(protocol, serverAddress);
+
   // Store the last given password
   serverPassword = password;
 
@@ -71,7 +79,7 @@ const connectToServer = async (address, password=null) => {
   itemsReceived = [];
 
   // Attempt to connect to the server
-  serverSocket = new WebSocket(`wss://${serverAddress}`);
+  serverSocket = new WebSocket(`${protocol}://${serverAddress}`);
   serverSocket.onopen = () => {};
 
   // Handle incoming messages
