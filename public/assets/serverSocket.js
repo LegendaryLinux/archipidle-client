@@ -71,7 +71,7 @@ const connectToServer = async (address, password=null) => {
   itemsReceived = [];
 
   // Attempt to connect to the server
-  serverSocket = new WebSocket(`ws://${serverAddress}`);
+  serverSocket = new WebSocket(`wss://${serverAddress}`);
   serverSocket.onopen = () => {};
 
   // Handle incoming messages
