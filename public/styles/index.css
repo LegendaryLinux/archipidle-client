@@ -12,13 +12,6 @@ body{
     padding: 1em;
 }
 
-#main-content.spinning{
-    animation-name: spin;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
 #header-text{
     text-align: center;
     margin: 0;
@@ -102,14 +95,4 @@ body{
 
 #cookie-message span{
     padding: 0 0.5rem;
-}
-
-@keyframes spin{
-    from{
-        transform: rotate(0deg);
-    }
-
-    to{
-        transform: rotate(360deg);
-    }
 }
