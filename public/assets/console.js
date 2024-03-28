@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
       case 'ArrowDown':
         if (cachedCommands.length === 0 || commandCursor === 0) { return; }
         if (commandCursor > 0) { commandCursor--; }
-        commandInput.value = commandCursor ? cachedCommands[cachedCommands.length - commandCursor] : '';
+        commandInput.value = comman1dCursor ? cachedCommands[cachedCommands.length - commandCursor] : '';
         return;
 
       default:

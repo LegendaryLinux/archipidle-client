@@ -98,8 +98,8 @@ const connectToServer = async (address, password=null) => {
             buildItemAndLocationData(JSON.parse(localStorage.getItem('dataPackage')));
           }
 
-          // Include DeathLink tag if it is enabled in the ROM
-          const tags = ['ArchipIDLE', 'DeathLink'];
+          // Set tags for this client
+          const tags = ['ArchipIDLE'];
 
           slotName = prompt('Enter your slot name:');
 
@@ -190,19 +190,6 @@ const connectToServer = async (address, password=null) => {
           if (command.tags && command.tags.includes('DeathLink')) {
             if (command.data && command.data.cause) {
               appendConsoleMessage(command.data.cause);
-            }
-
-            // Do not show a motivational video if the player is protected from DeathLink packets
-            if (immortal || protectFromDeathLink) { return; }
-
-            protectFromDeathLink = true;
-            ++deathCounter;
-            setTimeout(() => { protectFromDeathLink = false; }, 3000);
-            motivatePlayer(command.data.source || null);
-
-            // If the player keeps getting killed, show the fate widget
-            if ((deathCounter % 5) === 0) {
-              chooseFate();
             }
           }
           break;

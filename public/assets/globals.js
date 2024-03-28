@@ -34,10 +34,5 @@ let ootLocationsByName = {};
 // Tracks if auto-scrolling is currently paused
 let autoScrollPaused = false;
 
-// Tracks if the client should be protected from DeathLink messages
-let immortal = false;
-let protectFromDeathLink = false;
-let deathCounter = 0;
-
 // Tracks the number of items which should be sent immediately
 let immediateItems = 0;
