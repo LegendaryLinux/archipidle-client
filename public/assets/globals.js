@@ -1,7 +1,7 @@
 const ARCHIPELAGO_PROTOCOL_VERSION = {
   major: 0,
   minor: 4,
-  build: 0,
+  build: 5,
   class: 'Version',
 };
 

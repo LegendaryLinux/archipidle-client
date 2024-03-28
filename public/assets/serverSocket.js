@@ -69,8 +69,6 @@ const connectToServer = async (address, password=null) => {
   // Strip protocol from server address if present
   serverAddress = serverAddress.replace(/^.*\/\//, '');
 
-  console.log(protocol, serverAddress);
-
   // Store the last given password
   serverPassword = password;
 
@@ -160,7 +158,35 @@ const connectToServer = async (address, password=null) => {
           break;
 
         case 'ReceivedItems':
-          // The IDLE client doesn't receive items
+          // Handle received items
+          command.items.forEach((item) => {
+            // Ignore items in this packet if it is the result of a reconnection, unless the item
+            // is the GeoCities item, because the user deserves to revisit the year 2001.
+            if (
+              (command.items.length > 5) &&
+              (command.index === 0) &&
+              (item.item !== 9000)
+            ) {
+              return;
+            }
+
+            switch (item.item) {
+              // Handle GeoCities Website
+              case 9000:
+                goBackInTime();
+                break;
+
+              // Handle joke API calls
+              case 9001:
+                tellDadJoke();
+                break;
+
+              // Handle motivational videos
+              case 9002:
+                motivatePlayer(players.find((p) => p.slot === item.player))
+                break;
+            }
+          });
           break;
 
         case 'RoomUpdate':
@@ -187,11 +213,6 @@ const connectToServer = async (address, password=null) => {
         case 'Bounced':
           // This command can be used for a variety of things. Currently, it is used for keep-alive and DeathLink.
           // keep-alive packets can be safely ignored
-          if (command.tags && command.tags.includes('DeathLink')) {
-            if (command.data && command.data.cause) {
-              appendConsoleMessage(command.data.cause);
-            }
-          }
           break;
 
         default:
@@ -304,21 +325,4 @@ const buildItemAndLocationData = (dataPackage) => {
   });
 
   ootLocationsByName = dataPackage.games['Ocarina of Time'].location_name_to_id;
-};
-
-const sendDeathLink = (cause) => {
-  if (serverSocket && serverSocket.readyState === WebSocket.OPEN) {
-    serverSocket.send(JSON.stringify([{
-      cmd: 'Bounce',
-      tags: ['DeathLink'],
-      data: {
-        time: new Date().getTime() / 1000,
-        cause: cause,
-        source: slotName,
-      }
-    }]));
-  }
-
-  protectFromDeathLink = true;
-  setTimeout(() => { protectFromDeathLink = false; }, 3000);
 };

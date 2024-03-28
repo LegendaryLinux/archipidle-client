@@ -79,6 +79,3 @@ const beginGame = () => {
     progressBar.setAttribute('value', ((endTime - startTime) - (endTime - currentTime)).toString());
   });
 };
-
-// If the player closes ArchipIDLE, send a DeathLink
-window.addEventListener('beforeunload', () => sendDeathLink(`${slotName || 'Somebody'} closed ArchipIDLE.`));
