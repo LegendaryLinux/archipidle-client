@@ -36,3 +36,5 @@ let autoScrollPaused = false;
 
 // Tracks the number of items which should be sent immediately
 let immediateItems = 0;
+
+let useMarquee = false;

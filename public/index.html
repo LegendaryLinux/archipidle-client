@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles/index.css" />
     <link rel="stylesheet" type="text/css" href="styles/widgets.css" />
+    <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
     <script type="application/ecmascript" src="assets/globals.js"></script>
     <script type="application/ecmascript" src="assets/serverSocket.js"></script>
     <script type="application/ecmascript" src="assets/console.js"></script>
@@ -13,13 +14,35 @@
 </head>
 <body>
 <div id="main-content">
-    <h2 id="header-text">ArchipIDLE 2024</h2>
+    <h2 id="header-text">
+        <span class="l0">A</span>
+        <span class="l1">r</span>
+        <span class="l2">c</span>
+        <span class="l3">h</span>
+        <span class="l4">i</span>
+        <span class="l5">p</span>
+        <span class="l6">I</span>
+        <span class="l7">D</span>
+        <span class="l8">L</span>
+        <span class="l9">E</span>
+        &nbsp;
+        <span class="n0">2</span>
+        <span class="n1">0</span>
+        <span class="n2">2</span>
+        <span class="n3">4</span>
+    </h2>
 
     <div id="status-bar">
         <div>AP Server: <span id="server-status" class="red">Not Connected</span></div>
         <div>
             <label for="server-address">Server Address:</label>
             <input id="server-address" />
+        </div>
+    </div>
+
+    <div id="visitor-count-wrapper">
+        <div id="visitor-count">
+            VISITOR COUNT: <span id="visitor-count-number">0</span>
         </div>
     </div>
 
@@ -39,6 +62,12 @@
         <input id="console-input" placeholder="Enter a command here, then press enter." />
     </div>
 </div>
+
+<img id="netscape" alt="This site works best in Netscape Navigator 3.0" src="static/netscape-ie.JPG" />
+<img id="dolphin-left" alt="Dolphin" src="static/dolphin-left.gif" />
+<img id="dolphin-right" alt="Dolphin" src="static/dolphin-right.gif" />
+<img id="fairy" alt="fairy" src="static/fairyfla.gif" />
+<img id="baby" alt="baby" src="static/babykick.gif" />
 
 <div id="cookie-message">
     <span>This website uses cookies to store information about displayed content.</span>

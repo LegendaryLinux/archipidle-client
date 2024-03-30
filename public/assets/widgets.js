@@ -1,3 +1,10 @@
+window.addEventListener('load', () => {
+  let visitorCount = parseInt(localStorage.getItem('visitor-count') || '1', 10);
+  ++visitorCount;
+  localStorage.setItem('visitor-count', (visitorCount).toString());
+  document.querySelector('#visitor-count-number').innerText = visitorCount.toString();
+});
+
 const motivationalVideos = [
   'https://www.youtube.com/embed/dQw4w9WgXcQ', // Never Gonna Give You Up - Rick Astley
   'https://www.youtube.com/embed/ZXsQAXx_ao0', // Just Do It - Shia LeBouf
@@ -78,6 +85,40 @@ const tellDadJoke = () => {
 };
 
 const goBackInTime = () => {
-  // TODO: Implement me!
-  alert('GeoCities');
+  new cursoreffects.textFlag({
+    text: 'Welcome to ArchipIDLE!!!!!',
+    textSize: 24,
+    color: ['#ccc333'],
+  });
+
+  const letterClasses = ['l1', 'l2', 'l3', 'l4', 'l5', 'l6', 'l7', 'l8', 'l9', 'l0', 'n0', 'n1', 'n2', 'n3'].reverse();
+  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+  let colorStartIndex = 0;
+  let colorIndex = 0;
+  const letters = [];
+  letterClasses.forEach((c) => letters.push(document.querySelector(`.${c}`)));
+  setInterval(() => {
+    if (colorStartIndex === colors.length) { colorStartIndex = 0; }
+    colorIndex = colorStartIndex;
+
+    letters.forEach((letter) => {
+      if (colorIndex === colors.length) { colorIndex = 0; }
+      letter.style.color = colors[colorIndex];
+      ++colorIndex;
+    });
+    ++colorStartIndex;
+  }, 250);
+
+  useMarquee = true;
+  document.querySelectorAll('div.console-message').forEach(async (e) => {
+    e.outerHTML = `<marquee class="console-message">${e.innerText}</marquee>`;
+  });
+
+  // ArchipIDLE 1997
+  document.querySelector('.n0').innerText = '1';
+  document.querySelector('.n1').innerText = '9';
+  document.querySelector('.n2').innerText = '9';
+  document.querySelector('.n3').innerText = '7';
+
+  document.body.classList.add('geocities');
 };

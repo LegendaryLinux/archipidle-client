@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
       case 'ArrowDown':
         if (cachedCommands.length === 0 || commandCursor === 0) { return; }
         if (commandCursor > 0) { commandCursor--; }
-        commandInput.value = comman1dCursor ? cachedCommands[cachedCommands.length - commandCursor] : '';
+        commandInput.value = commandCursor ? cachedCommands[cachedCommands.length - commandCursor] : '';
         return;
 
       default:
@@ -89,7 +89,7 @@ const appendConsoleMessage = (message) => {
   }
 
   // Append message div to monitor
-  const messageDiv = document.createElement('div');
+  const messageDiv = document.createElement(useMarquee ? 'marquee' : 'div');
   messageDiv.classList.add('console-message');
   messageDiv.innerText = message;
   monitor.appendChild(messageDiv);
