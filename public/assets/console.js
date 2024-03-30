@@ -104,7 +104,7 @@ const appendFormattedConsoleMessage = (messageParts) => {
   }
 
   // Create the message div
-  const messageDiv = document.createElement('div');
+  const messageDiv = document.createElement(useMarquee ? 'marquee' : 'div');
   messageDiv.classList.add('console-message');
 
   // Create the spans to populate the message div
