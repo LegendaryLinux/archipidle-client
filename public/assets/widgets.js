@@ -33,6 +33,7 @@ const motivationalVideos = [
   'https://www.youtube.com/embed/mm-aovm1axQ', // Trogdor the Burninator (Song Only)
   'https://www.youtube.com/embed/o0u4M6vppCI', // Actual Cannibal Shia LaBeouf
   'https://www.youtube.com/embed/D-UmfqFjpl0', // Dog of Wisdom
+  'https://www.youtube.com/embed/lrzKT-dFUjE', // Ultimate Showdown of Ultimate Destiny
 ];
 
 const motivatePlayer = (playerName = 'a dead player') => {
