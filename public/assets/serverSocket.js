@@ -183,8 +183,8 @@ const connectToServer = async (address, password=null) => {
 
               // Handle motivational videos
               case 9002:
-                console.log(players);
-                motivatePlayer(players.find((p) => p.slot === item.player).alias || 'An unknown player');
+                const player = players.find((p) => p.slot === item.player);
+                motivatePlayer(player?.alias || 'an unknown player');
                 break;
             }
           });
