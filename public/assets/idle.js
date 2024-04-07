@@ -1,6 +1,11 @@
 // Loop control
 let gameInterval = null;
 
+// Easy controls for Idle Timer
+let timerMinimum = 30000;
+let timerVariance = 30000;
+let timerMaximum = timerMinimum + timerVariance;
+
 window.addEventListener('load', () => {
   document.getElementById('control-button').addEventListener('click', beginGame);
 
@@ -25,7 +30,7 @@ const beginGame = () => {
   // Progress tracking data
   const progressBar = document.getElementById('progress-bar');
   let startTime = new Date().getTime();
-  let endTime = startTime + Math.floor((Math.random() * 30000) + 30000);
+  let endTime = startTime + Math.floor((Math.random() * timerVariance) + timerMinimum);
   progressBar.setAttribute('max', (endTime - startTime).toString());
 
   // Update item counter
@@ -34,8 +39,8 @@ const beginGame = () => {
 
   // If all checks have already been sent, fill the progress bar and do nothing else
   if (missingLocations.length === 0) {
-    progressBar.setAttribute('max', '30000');
-    progressBar.setAttribute('value', '30000');
+    progressBar.setAttribute('max', timerMaximum);
+    progressBar.setAttribute('value', timerMaximum);
     return;
   }
 
@@ -48,8 +53,8 @@ const beginGame = () => {
       }]));
       clearInterval(gameInterval);
       gameInterval = null;
-      progressBar.setAttribute('max', '30000');
-      progressBar.setAttribute('value', '30000');
+      progressBar.setAttribute('max', timerMaximum);
+      progressBar.setAttribute('value', timerMaximum);
       return;
     }
 
@@ -69,7 +74,7 @@ const beginGame = () => {
 
       // Update timers
       startTime = currentTime;
-      endTime = currentTime + Math.floor((Math.random() * 30000) + 30000);
+      endTime = currentTime + Math.floor((Math.random() * timerVariance) + timerMinimum);
 
       // Update progress bar maximum
       progressBar.setAttribute('max', (endTime - startTime).toString());
@@ -79,3 +84,4 @@ const beginGame = () => {
     progressBar.setAttribute('value', ((endTime - startTime) - (endTime - currentTime)).toString());
   });
 };
+
