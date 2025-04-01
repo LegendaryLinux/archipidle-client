@@ -22,7 +22,7 @@ body{
     margin: 0 0.25rem;
 }
 
-#header-text{
+.header-text{
     text-align: center;
     margin: 0;
     padding: 0;

@@ -1,8 +1,4 @@
 window.addEventListener('load', () => {
-  let visitorCount = parseInt(localStorage.getItem('visitor-count') || '1', 10);
-  ++visitorCount;
-  localStorage.setItem('visitor-count', (visitorCount).toString());
-  document.querySelector('#visitor-count-number').innerText = visitorCount.toString();
   initStoryTime();
   setupWhiteboard();
 });
@@ -38,6 +34,11 @@ const motivationalVideos = [
   'https://www.youtube.com/embed/D-UmfqFjpl0', // Dog of Wisdom
   'https://www.youtube.com/embed/TnlakHr-O4w', // Dog of Wisdom II
   'https://www.youtube.com/embed/lrzKT-dFUjE', // Ultimate Showdown of Ultimate Destiny
+  'https://www.youtube.com/embed/8HqLysSnnlQ', // Perception Check by Tom Cardy
+  'https://www.youtube.com/embed/kK0KPuH32mc', // H.S. by Tom Cardy
+  'https://www.youtube.com/embed/GFokXnCCMf8', // Red Flags by Tom Cardy
+  'https://www.youtube.com/embed/wrJ6_GAprFE', // Hey, I Don't Work Here by Tom Cardy
+  'https://www.youtube.com/embed/T5s2OTqDiyo', // Dance 'Til You Stop by Ninja Sex Party
 ];
 
 
