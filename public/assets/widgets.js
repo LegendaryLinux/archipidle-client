@@ -3,7 +3,10 @@ window.addEventListener('load', () => {
   ++visitorCount;
   localStorage.setItem('visitor-count', (visitorCount).toString());
   document.querySelector('#visitor-count-number').innerText = visitorCount.toString();
+  initStoryTime();
+  setupWhiteboard();
 });
+
 
 const motivationalVideos = [
   'https://www.youtube.com/embed/dQw4w9WgXcQ', // Never Gonna Give You Up - Rick Astley
@@ -33,8 +36,10 @@ const motivationalVideos = [
   'https://www.youtube.com/embed/mm-aovm1axQ', // Trogdor the Burninator (Song Only)
   'https://www.youtube.com/embed/o0u4M6vppCI', // Actual Cannibal Shia LaBeouf
   'https://www.youtube.com/embed/D-UmfqFjpl0', // Dog of Wisdom
+  'https://www.youtube.com/embed/TnlakHr-O4w', // Dog of Wisdom II
   'https://www.youtube.com/embed/lrzKT-dFUjE', // Ultimate Showdown of Ultimate Destiny
 ];
+
 
 const motivatePlayer = (playerName = 'a dead player') => {
   // Only one video at a time, please
@@ -69,6 +74,7 @@ const motivatePlayer = (playerName = 'a dead player') => {
   document.body.appendChild(container);
 };
 
+
 const tellDadJoke = () => {
   fetch('https://dadjokeslideshow.com/api/')
     .then(async (res) => {
@@ -87,41 +93,96 @@ const tellDadJoke = () => {
     });
 };
 
-const goBackInTime = () => {
-  new cursoreffects.textFlag({
-    text: 'Welcome to ArchipIDLE!!!!!',
-    textSize: 24,
-    color: ['#ccc333'],
+
+// Globals for whiteboard
+let isDrawing = false;
+let markerColor = '#cecece';
+let markerSize = 4;
+
+const setupWhiteboard = () => {
+  const whiteboard = document.getElementById("drawing-board");
+
+  // Start drawing on mousedown
+  whiteboard.addEventListener("mousedown", (event) => {
+    isDrawing = true;
+    drawOnBoard(event); // Draw a dot where the mousedown occurred
   });
 
-  const letterClasses = ['l1', 'l2', 'l3', 'l4', 'l5', 'l6', 'l7', 'l8', 'l9', 'l0', 'n0', 'n1', 'n2', 'n3'].reverse();
-  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-  let colorStartIndex = 0;
-  let colorIndex = 0;
-  const letters = [];
-  letterClasses.forEach((c) => letters.push(document.querySelector(`.${c}`)));
-  setInterval(() => {
-    if (colorStartIndex === colors.length) { colorStartIndex = 0; }
-    colorIndex = colorStartIndex;
+  // Stop drawing on mouseup
+  whiteboard.addEventListener("mouseup", () => {
+    isDrawing = false;
+  });
 
-    letters.forEach((letter) => {
-      if (colorIndex === colors.length) { colorIndex = 0; }
-      letter.style.color = colors[colorIndex];
-      ++colorIndex;
-    });
-    ++colorStartIndex;
+  // Stop drawing if the mouse leaves the drawing area
+  whiteboard.addEventListener("mouseleave", () => {
+    isDrawing = false;
+  });
+
+  // Draw when mouse is moved and the button is held
+  whiteboard.addEventListener("mousemove", (event) => {
+    if (isDrawing) {
+      drawOnBoard(event);
+    }
+  });
+
+  // Allow the user to change marker color and size and clear the board
+  const markerColorInput = document.querySelector('#marker-color');
+  const markerSizeInput = document.querySelector('#marker-size');
+  markerColorInput.addEventListener('change', (evt) => markerColor = evt.target.value);
+  markerSizeInput.addEventListener('change', (evt) => markerSize = evt.target.value);
+  document.querySelector('#clear-board').addEventListener('click', (evt) => {
+    document.querySelector('#drawing-board').innerHTML = '';
+  });
+
+  // Reset form values
+  markerColorInput.value = markerColor;
+  markerSizeInput.value = markerSize;
+
+  function drawOnBoard(event) {
+    const markerDot = document.createElement("div");
+    markerDot.className = "drawn-dot";
+    markerDot.style.backgroundColor = markerColor;
+    markerDot.style.width = `${markerSize}px`;
+    markerDot.style.height = `${markerSize}px`;
+
+    // Calculate the dot's position relative to the drawing area
+    const rect = whiteboard.getBoundingClientRect();
+    markerDot.style.left = `${event.clientX - rect.left - markerSize / 2}px`;
+    markerDot.style.top = `${event.clientY - rect.top - markerSize / 2}px`;
+
+    whiteboard.appendChild(markerDot);
+  }
+};
+
+let storyLines = [];
+const initStoryTime = async () => {
+  const story = await fetch(`${window.location.origin}/static/nate_the_snake.txt`);
+  storyLines = (await story.text()).split('\n');
+
+  const storyInterval = setInterval(() => {
+    // If the number of total items is not yet known or all items have been sent, don't bother continuing
+    if ((checkedLocations.length + missingLocations.length) === 0) {
+      return;
+    }
+
+    // Calculate the percentage of total items sent
+    const percentSent = (checkedLocations.length / (checkedLocations.length + missingLocations.length));
+
+    // Calculate how many individual lines of the story to show
+    const storyLinesToShow = Math.floor(storyLines.length * percentSent);
+
+    const storyDiv = document.querySelector('#the-story');
+    if (storyLinesToShow === 0) {
+      storyDiv.innerHTML = '';
+      return;
+    }
+
+    // Display a <p> for each line of the story to show
+    storyDiv.innerHTML = storyLines.slice(0, storyLinesToShow).join('<br /><br />');
+
+    // Stop the interval if the full story has been shown
+    if (storyLinesToShow === storyLines.length) {
+      clearInterval(storyInterval);
+    }
   }, 250);
-
-  useMarquee = true;
-  document.querySelectorAll('div.console-message').forEach(async (e) => {
-    e.outerHTML = `<marquee class="console-message">${e.innerText}</marquee>`;
-  });
-
-  // ArchipIDLE 1997
-  document.querySelector('.n0').innerText = '1';
-  document.querySelector('.n1').innerText = '9';
-  document.querySelector('.n2').innerText = '9';
-  document.querySelector('.n3').innerText = '7';
-
-  document.body.classList.add('geocities');
 };

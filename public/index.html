@@ -1,77 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>ArchipIDLE</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="styles/index.css" />
-    <link rel="stylesheet" type="text/css" href="styles/widgets.css" />
-    <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
-    <script type="application/ecmascript" src="assets/globals.js"></script>
-    <script type="application/ecmascript" src="assets/serverSocket.js"></script>
-    <script type="application/ecmascript" src="assets/console.js"></script>
-    <script type="application/ecmascript" src="assets/widgets.js"></script>
-    <script type="application/ecmascript" src="assets/idle.js"></script>
+  <title>ArchipIDLE 2025</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="styles/index.css" />
+  <link rel="stylesheet" type="text/css" href="styles/widgets.css" />
+  <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+  <script type="application/ecmascript" src="assets/globals.js"></script>
+  <script type="application/ecmascript" src="assets/serverSocket.js"></script>
+  <script type="application/ecmascript" src="assets/console.js"></script>
+  <script type="application/ecmascript" src="assets/widgets.js"></script>
+  <script type="application/ecmascript" src="assets/idle.js"></script>
 </head>
 <body>
-<div id="main-content">
+
+<div id="main-content-wrapper" class="flex-row">
+  <div class="main-content">
     <h2 id="header-text">
-        <span class="l0">A</span>
-        <span class="l1">r</span>
-        <span class="l2">c</span>
-        <span class="l3">h</span>
-        <span class="l4">i</span>
-        <span class="l5">p</span>
-        <span class="l6">I</span>
-        <span class="l7">D</span>
-        <span class="l8">L</span>
-        <span class="l9">E</span>
-        &nbsp;
-        <span class="n0">2</span>
-        <span class="n1">0</span>
-        <span class="n2">2</span>
-        <span class="n3">4</span>
+      ArchipIDLE 2025
     </h2>
 
     <div id="status-bar">
-        <div>AP Server: <span id="server-status" class="red">Not Connected</span></div>
-        <div>
-            <label for="server-address">Server Address:</label>
-            <input id="server-address" />
-        </div>
+      <div>AP Server: <span id="server-status" class="red">Not Connected</span></div>
+      <div>
+        <label for="server-address">Server Address:</label>
+        <input id="server-address" />
+      </div>
     </div>
 
     <div id="visitor-count-wrapper">
-        <div id="visitor-count">
-            VISITOR COUNT: <span id="visitor-count-number">0</span>
-        </div>
+      <div id="visitor-count">
+        VISITOR COUNT: <span id="visitor-count-number">0</span>
+      </div>
     </div>
 
     <div id="progress-container">
-        <h3 id="progress-container-header">Location Check Progress</h3>
-        <progress id="progress-bar" value="0" max="30000"></progress>
-        Checks sent: <span id="checks-sent">0</span> / 200<br />
-        <button id="control-button" disabled="disabled">Begin!</button>
+      <h3 id="progress-container-header">Location Check Progress</h3>
+      <progress id="progress-bar" value="0" max="30000"></progress>
+      Checks sent: <span id="checks-sent">0</span> / 200<br />
+      <button id="control-button" disabled="disabled">Begin!</button>
     </div>
 
     <div id="console">
-        <!-- Populated by JS -->
+      <!-- Populated by JS -->
     </div>
 
     <div id="command-wrapper">
-        <label for="console-input"></label>
-        <input id="console-input" placeholder="Enter a command here, then press enter." />
+      <label for="console-input"></label>
+      <input id="console-input" placeholder="Enter a command here, then press enter." />
     </div>
+  </div>
+
+  <div id="entertainment-complex" class="main-content">
+    <h1>Entertainment Complex</h1>
+
+    <h2>Story Time!</h2>
+    <div id="story-time">
+      <p>
+        As you send item checks, a story will be revealed in the box below.
+      </p>
+      <div id="the-story">
+
+      </div>
+    </div>
+
+    <h2>The Drawing Board</h2>
+    <div id="drawing-board">
+
+    </div>
+    <div id="drawing-board-controls">
+      <button id="clear-board">Clear</button>
+      <input id="marker-color" type="color" value="#cecece" />
+      <input id="marker-size" type="range" min="1" max="30" value="4" />
+    </div>
+  </div>
 </div>
 
-<img id="netscape" alt="This site works best in Netscape Navigator 3.0" src="static/netscape-ie.JPG" />
-<img id="dolphin-left" alt="Dolphin" src="static/dolphin-left.gif" />
-<img id="dolphin-right" alt="Dolphin" src="static/dolphin-right.gif" />
-<img id="fairy" alt="fairy" src="static/fairyfla.gif" />
-<img id="baby" alt="baby" src="static/babykick.gif" />
-
 <div id="cookie-message">
-    <span>This website uses cookies to store information about displayed content.</span>
-    <span>❌</span>
+  <span>This website uses cookies to store information about displayed content.</span>
+  <span>❌</span>
 </div>
 </body>
 </html>

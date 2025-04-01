@@ -61,108 +61,62 @@
     }
 }
 
-body.geocities{
-    background: url("https://c.tenor.com/IvyuPtEfzhoAAAAC/matrix.gif");
-    background-repeat: repeat;
-}
-
-body.geocities #main-content{
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 3px solid #135b13;
-    border-radius: 0;
-    background-image: url('https://media.tenor.com/HJYpC1p52ocAAAAd/dance-slide.gif');
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
-
-body.geocities #console{
-    border: 3px solid #135b13;
-    border-radius: 0;
-}
-
-body.geocities #netscape, body.geocities #fairy, body.geocities #baby, body.geocities #dolphin-left, body.geocities #dolphin-right{
-    display: unset;
-}
-
-#netscape{
-    display: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 80px;
-}
-
-#fairy{
-    display: none;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-#baby{
-    display: none;
-    position: absolute;
-    top: -100px;
-    left: 0;
-
-    animation-name: baby-bounce;
-    animation-duration: 10s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-#dolphin-left{
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-#dolphin-right{
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-@keyframes baby-bounce {
-    0%{
-        top: unset;
-        bottom: 0;
-        left: 250px;
-        right: unset;
+#entertainment-complex{
+    h1{
+        margin: 0;
     }
 
-    50%{
-        top: unset;
-        bottom: 0;
-        left: 650px;
-        right: unset;
+    h2, p{
+        margin: 0.5rem 0;
     }
 
-    100%{
-        top: unset;
-        bottom: 0;
-        left: 250px;
-        right: unset;
+    #drawing-board{
+        width: 100%;
+        height: 20rem;
+        border: 1px solid #cecece;
     }
 }
 
-#visitor-count-wrapper{
-    display: none;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 1rem;
+#story-time{
+    #the-story{
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #cecece;
+        height: 12rem;
+        overflow-y: auto;
+        text-wrap: wrap;
+    }
 }
 
-#visitor-count{
-    border-image: linear-gradient(#89e34f, #4b9a10) 30;
-    border-width: 10px;
-    border-style: solid;
-    color: #ffffff;
-    font-family: Consolas, sans-serif;
+#drawing-board {
+    position: relative;
+    cursor: crosshair;
+    background-color: #2d2d2d;
+    overflow: hidden;
+
+    .drawn-dot {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+    }
 }
 
-body.geocities #visitor-count-wrapper{
+#drawing-board-controls{
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1rem;
+
+    button{
+        margin-right: 0.5rem;
+    }
+
+    input{
+        flex-grow: 1;
+
+        &[type="color"]{
+            margin-right: 0.5rem;
+        }
+    }
 }

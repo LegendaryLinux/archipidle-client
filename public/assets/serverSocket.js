@@ -171,11 +171,6 @@ const connectToServer = async (address, password=null) => {
             }
 
             switch (item.item) {
-              // Handle GeoCities Website
-              case 9000:
-                goBackInTime();
-                break;
-
               // Handle joke API calls
               case 9001:
                 tellDadJoke();
